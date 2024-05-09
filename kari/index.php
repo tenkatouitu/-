@@ -80,7 +80,7 @@ if (!empty($_POST["submitButton"])) {
 
 
 //DBからコメントデータを取得する
-$sql = "SELECT username, comment, postDate FROM karit ORDER BY postDate ASC";
+$sql = "SELECT id, username, comment, postDate FROM karit ORDER BY postDate ASC";
 $message_array = $pdo->query($sql);
 
 
@@ -95,12 +95,13 @@ $pdo = null;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>天下統一掲示板</title>
+    <title>天一知恵袋</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <h1 class="title">天下統一掲示板</h1>
+<body class="gamingbackground">
+<div class="cherry-blossom-container">
+    <h1 class="gaming" id="title">天一知恵袋</h1>
     <hr>
     <div class="boardWrapper">
         <!-- メッセージ送信成功時 -->
@@ -121,8 +122,10 @@ $pdo = null;
                         <div class="wrapper">
                             <div class="nameArea">
                                 <span>名前：</span>
-                                <p class="username"><?php echo $value['username'] ?></p>
+                                <p class="username gaming"><?php echo $value['username'] ?></p>
                                 <time>:<?php echo date('Y/m/d H:i', strtotime($value['postDate'])); ?></time>
+                                <span>　ID：</span>
+                                <p><?php echo $value['id'] ?></p>
                             </div>
                             <p class="comment"><?php echo $value['comment']; ?></p>
                         </div>
@@ -132,16 +135,20 @@ $pdo = null;
         </section>
         <form method="POST" action="" class="formWrapper">
             <div>
-                <input type="submit" value="書き込む" name="submitButton">
-                <label for="usernameLabel">名前：</label>
+                <input type="submit" value="投稿"name="submitButton">
+                <label class="gaming">Name:</label>
                 <input type="text" name="username">
             </div>
             <div>
-                <textarea name="comment" class="commentTextArea"></textarea>
+                <textarea name="comment" class="comment"></textarea>
             </div>
         </form>
+        <form action="deletepage.php" class="formWrapper">
+            <input type="submit" value="削除ページへ">
+        </form>
     </div>
-
+</div>
+<script src="main.js"></script>
 </body>
 
 </html>
