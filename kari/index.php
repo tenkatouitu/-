@@ -128,11 +128,11 @@ $pdo = null;
                     <article>
                         <div class="wrapper">
                             <div class="nameArea">
-                                <span>名前：</span>
+                                <span>ID：</span>
+                                <p><?php echo $value['id'] ?></p>
+                                <span>　名前：</span>
                                 <p class="username gaming"><?php echo $value['username'] ?></p>
                                 <time>:<?php echo date('Y/m/d H:i:s', strtotime($value['postDate'])); ?></time>
-                                <span>　ID：</span>
-                                <p><?php echo $value['id'] ?></p>
                             </div>
                             <p class="comment"><?php echo $value['comment']; ?></p>
                         </div>
@@ -145,12 +145,14 @@ $pdo = null;
         </form>
         <form method="POST" action="" class="formWrapper">
             <div>
-                <input type="submit" value="投稿"name="submitButton">
-                <label class="gaming">Name:</label>
-                <input type="text" name="username">
+                <label class="gaming">名前:</label>
+                <input type="text" name="username" value = "名無し">
             </div>
             <div>
                 <textarea name="comment" class="comment"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="投稿"name="submitButton">
             </div>
         </form>
     </div>
