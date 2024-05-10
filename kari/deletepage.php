@@ -20,63 +20,9 @@ try {
     $error_message[] = $e->getMessage();
 }
 
-//デリート部分　DELETE FROM `karit` WHERE `karit`.`id` = 19
-if(!empty($_POST["deletebutton"])){
-    echo "デリートボタン押したぜ？？？";
-    echo $_POST["idtext"];
-      //表示名の入力チェック
-      if (empty($_POST["idtext"])) {
-        $error_message[] = "IDを入力してください。";
-    } else {
-        $escaped['idtext'] = htmlspecialchars($_POST["idtext"], ENT_QUOTES, "UTF-8");
-    }
-
-     //エラーメッセージが何もないときだけデータ保存できる
-     if (empty($error_message)) {
-        // var_dump($_POST);
-
-        //ここからDB追加のときに追加
-        //$current_date = date("Y-m-d H:i:s");
-
-        //トランザクション開始
-        $pdo->beginTransaction();
-
-        try {
-
-            //SQL作成
-            $statment = $pdo->prepare("DELETE FROM karit WHERE karit.id = :id");
-
-            //値をセット
-            /*$statment->bindParam(':username', $escaped["username"], PDO::PARAM_STR);
-            $statment->bindParam(':comment', $escaped["comment"], PDO::PARAM_STR);
-            $statment->bindParam(':current_date', $current_date, PDO::PARAM_STR);*/
-            $statment->bindParam(':id', $_POST["idtext"], PDO::PARAM_STR);
-            //$stmt->bindValue(':id', '花子');
-
-            //SQLクエリの実行
-            $res = $statment->execute();
-
-            //ここまでエラーなくできたらコミット
-            $res = $pdo->commit();
-        } catch (Exception $e) {
-            //エラーが発生したときはロールバック(処理取り消し)
-            $pdo->rollBack();
-        }
-
-        if ($res) {
-            $success_message = "コメントを書き込みました。";
-        } else {
-            $error_message[] = "書き込みに失敗しました。";
-        }
-
-        $statment = null;
-    }
-    header("Location: index.php");
-}
-
 //送信して受け取ったデータは$_POSTの中に自動的に入る。
 //投稿データがあるときだけログを表示する。
-/*if (!empty($_POST["submitButton"])) {
+if (!empty($_POST["submitButton"])) {
 
     //表示名の入力チェック
     if (empty($_POST["username"])) {
@@ -129,8 +75,11 @@ if(!empty($_POST["deletebutton"])){
         }
 
         $statment = null;
+
+        header('Location: ./');
+		exit;
     }
-}  */
+}
 
 
 //DBからコメントデータを取得する
@@ -150,11 +99,16 @@ $pdo = null;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>天一知恵袋</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="gamingbackground">
-    <h1 class="gaming" id="title">天一知恵袋</h1>
+<body>
+    <div class="leaves-container">
+ <!--<div class="cherry-blossom-container">-->
+    <h1 class="gamingbackground" id="title">天一知恵袋</h1>
     <hr>
     <div class="boardWrapper">
         <!-- メッセージ送信成功時 -->
@@ -174,11 +128,11 @@ $pdo = null;
                     <article>
                         <div class="wrapper">
                             <div class="nameArea">
-                                <span>名前：</span>
-                                <p class="username gaming"><?php echo $value['username'] ?></p>
-                                <time>:<?php echo date('Y/m/d H:i', strtotime($value['postDate'])); ?></time>
-                                <span>　ID：</span>
+                                <span>ID：</span>
                                 <p><?php echo $value['id'] ?></p>
+                                <span>　名前：</span>
+                                <p class="username gaming"><?php echo $value['username'] ?></p>
+                                <time>:<?php echo date('Y/m/d H:i:s', strtotime($value['postDate'])); ?></time>
                             </div>
                             <p class="comment"><?php echo $value['comment']; ?></p>
                         </div>
@@ -186,19 +140,24 @@ $pdo = null;
                 <?php endforeach; ?>
             <?php endif; ?>
         </section>
+        <form action="deletepage.php" class="formWrapper">
+            <input type="submit" value="削除ページへ">
+        </form>
         <form method="POST" action="" class="formWrapper">
             <div>
-                <p>ここに消したい投稿のIDを入力して削除ボタンを押してください。</p>
-                <input type="submit" value="削除"name="deletebutton">
-                <label class="labelb">ID：</label>
-                <input type="text" name="idtext">
+                <label class="gaming">名前:</label>
+                <input type="text" name="username" value = "名無し">
+            </div>
+            <div>
+                <textarea name="comment" class="comment"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="投稿"name="submitButton">
             </div>
         </form>
-        <form action="index.php" class="formWrapper">
-            <input type="submit" value="戻る" name="indexback">
-        </form>
-        <p>ここは別のページです。</p>
     </div>
+    </div>
+<!--</div>-->
 <script src="main.js"></script>
 </body>
 
