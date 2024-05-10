@@ -154,7 +154,6 @@ $pdo = null;
 </head>
 
 <body class="gamingbackground">
-<div class="cherry-blossom-container">
     <h1 class="gaming" id="title">天一知恵袋</h1>
     <hr>
     <div class="boardWrapper">
@@ -200,7 +199,6 @@ $pdo = null;
         </form>
         <p>ここは別のページです。</p>
     </div>
-</div>
 <script src="main.js"></script>
 </body>
 
