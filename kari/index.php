@@ -75,6 +75,9 @@ if (!empty($_POST["submitButton"])) {
         }
 
         $statment = null;
+
+        header('Location: ./');
+		exit;
     }
 }
 
@@ -127,7 +130,7 @@ $pdo = null;
                             <div class="nameArea">
                                 <span>名前：</span>
                                 <p class="username gaming"><?php echo $value['username'] ?></p>
-                                <time>:<?php echo date('Y/m/d H:i', strtotime($value['postDate'])); ?></time>
+                                <time>:<?php echo date('Y/m/d H:i:s', strtotime($value['postDate'])); ?></time>
                                 <span>　ID：</span>
                                 <p><?php echo $value['id'] ?></p>
                             </div>
@@ -137,6 +140,9 @@ $pdo = null;
                 <?php endforeach; ?>
             <?php endif; ?>
         </section>
+        <form action="deletepage.php" class="formWrapper">
+            <input type="submit" value="削除ページへ">
+        </form>
         <form method="POST" action="" class="formWrapper">
             <div>
                 <input type="submit" value="投稿"name="submitButton">
@@ -146,9 +152,6 @@ $pdo = null;
             <div>
                 <textarea name="comment" class="comment"></textarea>
             </div>
-        </form>
-        <form action="deletepage.php" class="formWrapper">
-            <input type="submit" value="削除ページへ">
         </form>
     </div>
     </div>
