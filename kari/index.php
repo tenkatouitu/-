@@ -96,12 +96,16 @@ $pdo = null;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>天一知恵袋</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="gamingbackground">
-<div class="cherry-blossom-container">
-    <h1 class="gaming" id="title">天一知恵袋</h1>
+<body>
+    <div class="leaves-container">
+ <!--<div class="cherry-blossom-container">-->
+    <h1 class="gamingbackground" id="title">天一知恵袋</h1>
     <hr>
     <div class="boardWrapper">
         <!-- メッセージ送信成功時 -->
@@ -147,7 +151,8 @@ $pdo = null;
             <input type="submit" value="削除ページへ">
         </form>
     </div>
-</div>
+    </div>
+<!--</div>-->
 <script src="main.js"></script>
 </body>
 
